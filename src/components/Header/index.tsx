@@ -30,19 +30,10 @@ export const Header = () => {
 
   const navItems = [
     {
-      text: 'home',
-      href: '/'
-    },
-    {
-      text: 'about',
-      href: '/about',
+      text: 'Events',
+      href: '/events',
       icon: <InformationCircleIcon className="h-6 w-6" />
     },
-    {
-      text: '404 page',
-      href: '/error',
-      icon: <InformationCircleIcon className="h-6 w-6" />
-    }
   ]
 
 
@@ -58,8 +49,8 @@ export const Header = () => {
           <Box fontWeight="bold" fontSize={[20, 20, 20]}>
             <NextLink href="/" passHref>
               <Link className="center flex gap-2">
-                <span>👽</span>
-                <span className="text-xl">ilyxium</span>
+                <span>☕</span>
+                <span className="text-xl">coffee project</span>
               </Link>
             </NextLink>
           </Box>
@@ -123,7 +114,7 @@ export const Header = () => {
               marginBottom="3rem"
               fontSize={[20, 20, 20]}
             >
-              
+
               <NextLink href="/">
                 <Link className="center flex gap-2">
                   <span>👽</span>

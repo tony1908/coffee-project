@@ -8,16 +8,16 @@ import {
   getDefaultWallets,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit';
-
+import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import {
-  chain,
-  configureChains,
-  createClient,
-  WagmiConfig,
-} from 'wagmi';
-
+  polygonMumbai,
+    optimismGoerli,
+} from 'wagmi/chains';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
+
+
+
 import { Page } from '../components/Page'
 import { theme } from '../styles/theme'
 
@@ -25,27 +25,28 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   //This is currently using the public alchemy ID. Please add your own to avoid being rate limited
   //Docs can be found here: https://wagmi.sh/docs/providers/alchemy
-  const { chains, provider } = configureChains(
-    [chain.polygonMumbai, chain.optimismKovan],
-    [
-      alchemyProvider(),
-      publicProvider()
-    ]
+  const { chains, publicClient } = configureChains(
+      [polygonMumbai, optimismGoerli],
+      [
+        alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
+        publicProvider()
+      ]
   );
 
   const { connectors } = getDefaultWallets({
-    appName: 'Eth Next.js Boilerplate',
+    appName: 'My RainbowKit App',
+    projectId: 'YOUR_PROJECT_ID',
     chains
   });
 
-  const wagmiClient = createClient({
+  const wagmiConfig = createConfig({
     autoConnect: true,
     connectors,
-    provider
+    publicClient
   })
 
   return (
-    <WagmiConfig client={wagmiClient}>
+    <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider chains={chains}>
         <ChakraProvider theme={theme}>
           <Page>
